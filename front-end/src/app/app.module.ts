@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from './components/shared/shared.module';
+import { RegisterformComponent } from './components/registerform/registerform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LayoutComponent
+    LayoutComponent,
+    RegisterformComponent,
   ],
   imports: [
     BrowserModule,
