@@ -1,14 +1,42 @@
 
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics , viewsets
 from .models import Articulos, Perfiles, Comentarios_publicacion,Comentarios_articulo, Publicaciones, Categorias
 from .serializers import PerfilesSerializer, ComentariosSerializer, PublicacionesSerializer, CategoriasSerializer ,ArticulosSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.views.generic import TemplateView
+from django.http import HttpResponse, JsonResponse
+import json 
+import codecs
 # Crear vistas.
+
+class JsonM(TemplateView):
+    def get(self, request, **kwargs):
+        json_data = codecs.open('templates/datosAdolescentes.json','r','utf-8-sig')
+        dataM = json.load(json_data)['Morbilidad_Adolescente']
+        return JsonResponse(dataM,safe=False)
+        
+class JsonR(TemplateView):
+    def get(self, request, **kwargs):
+        json_data = codecs.open('templates/datosAdolescentes.json','r','utf-8-sig')
+        dataR = json.load(json_data)['Riesgo_Adolescente']
+        return JsonResponse(dataR,safe=False)
+
+ 
+class JsonT(TemplateView):
+    def get(self, request, **kwargs):
+        json_data = codecs.open('templates/datosAdolescentes.json','r','utf-8-sig')
+        dataT = json.load(json_data)['Tamizaje_Adolescente']
+        return JsonResponse(dataT,safe=False)       
+
+
+class home(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+
 
 class UsuarioView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]

@@ -17,5 +17,9 @@ urlpatterns = [
     
     url(r'^articulos$', views.ArticulosList.as_view()),
     url(r'^articulos/(?P<pk>[0-9]+)$', views.ArticulosDetail.as_view()),
+    url(r'^json/Morbilidad_Adolescente$',views.JsonM.as_view()),
+    url(r'^json/Riesgo_Adolescente$',views.JsonR.as_view()),
+    url(r'^json/Tamizaje_Adolescente$',views.JsonT.as_view()),  
+    url(r'^', views.home.as_view()),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
