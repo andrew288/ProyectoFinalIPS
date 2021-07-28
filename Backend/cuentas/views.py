@@ -1,8 +1,8 @@
 
 from django.shortcuts import render
-from rest_framework import generics , viewsets
+from rest_framework import generics , viewsets,status
 from .models import Articulos, Perfiles, Comentarios_publicacion,Comentarios_articulo, Publicaciones, Categorias
-from .serializers import PerfilesSerializer, ComentariosSerializer, PublicacionesSerializer, CategoriasSerializer ,ArticulosSerializer
+from .serializers import PerfilesSerializer, ComentariosSerializer, PublicacionesSerializer, CategoriasSerializer ,ArticulosSerializer, UserSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse, JsonResponse
 import json 
 import codecs
+from django.contrib.auth.models import User
 # Crear vistas.
 
 class JsonM(TemplateView):
@@ -38,16 +39,13 @@ class home(TemplateView):
         return render(request, 'index.html', context=None)
 
 
-class UsuarioView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
-        content = {
-            'user': str(request.user),
-            'auth': str(request.auth),
-        }
-        return Response(content)
+class UsuarioList(generics.ListCreateAPIView):
+    """
+        Clase generica para  lectura y escritura de perfiles
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 

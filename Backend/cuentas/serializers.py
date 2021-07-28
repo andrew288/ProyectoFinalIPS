@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
+        fields = ('id','first_name','last_name','email','username','password','is_superuser')
 
 
 class PerfilesSerializer(serializers.ModelSerializer):
@@ -68,6 +68,5 @@ class CategoriasSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Categorias
-        fields = ('id', 'nombre')
+        fields = '__all__'
 
-        
