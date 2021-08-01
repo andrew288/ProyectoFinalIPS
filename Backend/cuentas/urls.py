@@ -2,11 +2,14 @@ from django.urls import path
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
-urlpatterns = [
+urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+[
     #path('', views.home, name='home'),
-    url('^user$', views.UsuarioList.as_view()),
-    
+   
+    url(r'^user$', views.UsuarioList.as_view()),
+    url(r'^user/(?P<pk>[0-9]+)$', views.UsuarioDetail.as_view()),
 
     url(r'^perfiles$', views.PerfilesList.as_view()),
     url(r'^perfiles/(?P<pk>[0-9]+)$', views.PerfilesDetail.as_view()),
@@ -28,6 +31,10 @@ urlpatterns = [
     url(r'^json/Morbilidad_Adolescente$',views.JsonM.as_view()),
     url(r'^json/Riesgo_Adolescente$',views.JsonR.as_view()),
     url(r'^json/Tamizaje_Adolescente$',views.JsonT.as_view()),  
-    url(r'^', views.home.as_view()),
-]
-urlpatterns = format_suffix_patterns(urlpatterns)
+    url(r'', views.home.as_view()),
+   
+    
+] 
+
+
+

@@ -14,7 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','first_name','last_name','email','username','password','is_superuser')
-
+    def create(self, validated_data):
+        user = User(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
 class PerfilesSerializer(serializers.ModelSerializer):
     """
@@ -22,7 +26,7 @@ class PerfilesSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Perfiles
-        fields = ('id', 'usuario', 'foto', 'gener','biografia', 'fecNacimiento', 'estadoCivil', 'data_modificada')
+        fields = '__all__'
 
 
 class PerfilesConDatosUsuarioSerializer(serializers.ModelSerializer):
@@ -50,7 +54,7 @@ class ComentariosSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Comentarios_articulo
-        fields = ('id', 'usuario', 'perfil', 'articulo','comentario', 'reply_to')
+        fields = '__all__'
 
 
 class PublicacionesSerializer(serializers.ModelSerializer):

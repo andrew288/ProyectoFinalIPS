@@ -47,6 +47,12 @@ class UsuarioList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+        Clase generica para  lectura y escritura de perfiles
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class PerfilesList(generics.ListCreateAPIView):
